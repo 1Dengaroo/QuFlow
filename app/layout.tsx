@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Loopkit — JavaScript Event Loop Visualizer",
+  title: "QuFlow — JavaScript Event Loop Visualizer",
   description:
     "Watch JavaScript execute step by step — understand the event loop, call stack, microtasks, and task queue visually.",
 };

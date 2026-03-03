@@ -27,7 +27,7 @@ export function VisualizerDashboard() {
       className="min-h-screen font-[var(--font-dm-sans)]"
       style={{ background: "var(--warm-bg-gradient)" }}
     >
-      <div className="w-full px-8 py-10">
+      <div className="w-full px-4 sm:px-8 py-6 sm:py-10">
         <DashboardHeader />
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr] gap-6">

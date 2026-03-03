@@ -13,33 +13,33 @@ import { CircleHelp, BookMarked, ExternalLink, TriangleAlert } from "lucide-reac
 
 export function DashboardHeader() {
   return (
-    <header className="flex items-center justify-between mb-8">
+    <header className="flex flex-wrap items-center justify-between gap-4 mb-8">
       <div>
         <h1
           className="text-3xl font-bold"
           style={{ color: "var(--warm-text)", letterSpacing: "-0.02em" }}
         >
-          Loopkit
+          QuFlow
         </h1>
         <p style={{ color: "var(--warm-muted)" }} className="text-base mt-1">
           JavaScript event loop, visualized step by step
         </p>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         <ThemePicker />
         <Dialog>
           <DialogTrigger asChild>
             <Button
               variant="outline"
-              className="h-10 px-4 rounded-xl text-sm font-medium"
+              className="h-10 px-3 sm:px-4 rounded-xl text-sm font-medium"
               style={{
                 borderColor: "var(--warm-border)",
                 color: "var(--warm-text)",
               }}
             >
-              <BookMarked className="w-4 h-4 mr-2" />
-              Resources
+              <BookMarked className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Resources</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
@@ -175,14 +175,14 @@ export function DashboardHeader() {
           <DialogTrigger asChild>
             <Button
               variant="outline"
-              className="h-10 px-4 rounded-xl text-sm font-medium"
+              className="h-10 px-3 sm:px-4 rounded-xl text-sm font-medium"
               style={{
                 borderColor: "var(--warm-border)",
                 color: "var(--warm-text)",
               }}
             >
-              <CircleHelp className="w-4 h-4 mr-2" />
-              About
+              <CircleHelp className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">About</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
@@ -221,14 +221,14 @@ export function DashboardHeader() {
           <DialogTrigger asChild>
             <Button
               variant="outline"
-              className="h-10 px-4 rounded-xl text-sm font-medium"
+              className="h-10 px-3 sm:px-4 rounded-xl text-sm font-medium"
               style={{
                 borderColor: "var(--warm-border)",
                 color: "var(--warm-text)",
               }}
             >
-              <TriangleAlert className="w-4 h-4 mr-2" />
-              Limitations
+              <TriangleAlert className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Limitations</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
@@ -244,7 +244,7 @@ export function DashboardHeader() {
               className="text-base space-y-4"
               style={{ color: "var(--warm-muted)" }}
             >
-              <p className="text-sm">
+              <p>
                 This is a simplified educational model of the event loop, not a
                 full JavaScript runtime. It supports{" "}
                 <code className="text-xs px-1 py-0.5 rounded bg-muted">
@@ -268,7 +268,7 @@ export function DashboardHeader() {
                 </code>
                 .
               </p>
-              <p className="text-sm">
+              <p>
                 It does not support variables, loops, conditionals, promise
                 chaining (
                 <code className="text-xs px-1 py-0.5 rounded bg-muted">
