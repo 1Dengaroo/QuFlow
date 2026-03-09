@@ -9,280 +9,184 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ThemePicker } from "@/components/theme-picker";
-import {
-  CircleHelp,
-  BookMarked,
-  ExternalLink,
-  TriangleAlert,
-} from "lucide-react";
+import { CircleHelp, BookMarked, TriangleAlert } from "lucide-react";
+import { ResourceLink } from "./resource-link";
 
 export function DashboardHeader() {
   return (
-    <header className="flex flex-wrap items-center justify-between gap-4 mb-8">
-      <div>
+    <header className="flex items-center justify-between gap-3 mb-4 lg:mb-6">
+      <div className="min-w-0">
         <h1
-          className="text-3xl font-bold"
-          style={{ color: "var(--warm-text)", letterSpacing: "-0.02em" }}
+          className="text-2xl sm:text-3xl font-extrabold tracking-tight"
+          style={{ color: "var(--warm-text)" }}
         >
-          QuFlow
+          Qu<span style={{ color: "var(--accent-purple)" }}>Flow</span>
         </h1>
-        <p style={{ color: "var(--warm-muted)" }} className="text-base mt-1">
-          JavaScript event loop, visualized step by step
+        <p
+          style={{ color: "var(--warm-muted)" }}
+          className="text-xs sm:text-sm mt-0.5"
+        >
+          JavaScript event loop, visualized
         </p>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <ThemePicker />
+
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              variant="outline"
-              className="h-10 px-3 sm:px-4 rounded-xl text-sm font-medium"
-              style={{
-                borderColor: "var(--warm-border)",
-                color: "var(--warm-text)",
-              }}
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 rounded-lg text-[var(--warm-muted)] hover:text-[var(--warm-text)]"
+              title="Resources"
             >
-              <BookMarked className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">Resources</span>
+              <BookMarked className="w-4 h-4" />
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle
-                className="text-xl"
+                className="text-lg"
                 style={{ color: "var(--warm-text)" }}
               >
                 Resources
               </DialogTitle>
             </DialogHeader>
-            <div className="space-y-3" style={{ color: "var(--warm-muted)" }}>
-              <p className="text-sm">
-                Collection of resources that personally helped me understand the
-                event loop and rendering process.
+            <div className="space-y-2" style={{ color: "var(--warm-muted)" }}>
+              <p className="text-xs mb-3">
+                Resources that helped me understand the event loop.
               </p>
-              <a
+              <ResourceLink
                 href="https://www.youtube.com/watch?v=8aGhZQkoFbQ&t=1476s"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 p-3 rounded-xl transition-colors hover:bg-muted"
-              >
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-sm"
-                  style={{
-                    background: "var(--step-pop-bg)",
-                    color: "var(--step-pop-text)",
-                  }}
-                >
-                  ▶
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div
-                    className="text-sm font-semibold flex items-center gap-1.5"
-                    style={{ color: "var(--warm-text)" }}
-                  >
-                    What the heck is the event loop anyway?
-                    <ExternalLink className="w-3 h-3 shrink-0 opacity-50" />
-                  </div>
-                  <div className="text-xs mt-0.5">
-                    Philip Roberts — JSConf EU
-                  </div>
-                </div>
-              </a>
-              <a
+                icon="▶"
+                iconBg="var(--step-pop-bg)"
+                iconColor="var(--step-pop-text)"
+                title="What the heck is the event loop anyway?"
+                subtitle="Philip Roberts — JSConf EU"
+              />
+              <ResourceLink
                 href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 p-3 rounded-xl transition-colors hover:bg-muted"
-              >
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold"
-                  style={{
-                    background: "var(--step-push-bg)",
-                    color: "var(--step-push-text)",
-                  }}
-                >
-                  MDN
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div
-                    className="text-sm font-semibold flex items-center gap-1.5"
-                    style={{ color: "var(--warm-text)" }}
-                  >
-                    JavaScript Execution Model
-                    <ExternalLink className="w-3 h-3 shrink-0 opacity-50" />
-                  </div>
-                  <div className="text-xs mt-0.5">
-                    MDN Web Docs — Official reference
-                  </div>
-                </div>
-              </a>
-              <a
+                icon="MDN"
+                iconBg="var(--step-push-bg)"
+                iconColor="var(--step-push-text)"
+                title="JavaScript Execution Model"
+                subtitle="MDN Web Docs"
+              />
+              <ResourceLink
                 href="https://jsflow.info/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 p-3 rounded-xl transition-colors hover:bg-muted"
-              >
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold"
-                  style={{
-                    background: "var(--step-neutral-bg)",
-                    color: "var(--step-neutral-text)",
-                  }}
-                >
-                  JS
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div
-                    className="text-sm font-semibold flex items-center gap-1.5"
-                    style={{ color: "var(--warm-text)" }}
-                  >
-                    JSFlow
-                    <ExternalLink className="w-3 h-3 shrink-0 opacity-50" />
-                  </div>
-                  <div className="text-xs mt-0.5">
-                    Interactive JavaScript execution visualizer
-                  </div>
-                </div>
-              </a>
-              <a
+                icon="JS"
+                iconBg="var(--step-neutral-bg)"
+                iconColor="var(--step-neutral-text)"
+                title="JSFlow"
+                subtitle="Interactive JS execution visualizer"
+              />
+              <ResourceLink
                 href="https://github.com/vault-developer/event-loop-explorer/tree/master"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 p-3 rounded-xl transition-colors hover:bg-muted"
-              >
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-sm"
-                  style={{
-                    background: "var(--queue-purple-bg)",
-                    color: "var(--queue-purple-text)",
-                  }}
-                >
-                  {"</>"}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div
-                    className="text-sm font-semibold flex items-center gap-1.5"
-                    style={{ color: "var(--warm-text)" }}
-                  >
-                    Event Loop Explorer
-                    <ExternalLink className="w-3 h-3 shrink-0 opacity-50" />
-                  </div>
-                  <div className="text-xs mt-0.5">
-                    AST-based event loop analysis — great reference
-                    implementation
-                  </div>
-                </div>
-              </a>
+                icon="</>"
+                iconBg="var(--queue-purple-bg)"
+                iconColor="var(--queue-purple-text)"
+                title="Event Loop Explorer"
+                subtitle="AST-based event loop analysis"
+              />
             </div>
           </DialogContent>
         </Dialog>
+
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              variant="outline"
-              className="h-10 px-3 sm:px-4 rounded-xl text-sm font-medium"
-              style={{
-                borderColor: "var(--warm-border)",
-                color: "var(--warm-text)",
-              }}
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 rounded-lg text-[var(--warm-muted)] hover:text-[var(--warm-text)]"
+              title="About"
             >
-              <CircleHelp className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">About</span>
+              <CircleHelp className="w-4 h-4" />
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle
-                className="text-xl"
+                className="text-lg"
                 style={{ color: "var(--warm-text)" }}
               >
                 Why did I make this?
               </DialogTitle>
             </DialogHeader>
             <div
-              className="text-base space-y-4"
+              className="text-sm space-y-3 leading-relaxed"
               style={{ color: "var(--warm-muted)" }}
             >
               <p>
                 Although I&apos;ve been working professionally as a developer
                 for some time now, I found my understanding of the JavaScript
-                event loop was surprisingly shaky.
+                event loop had gaps.
               </p>
               <p>
-                I couldn't explain why certain code snippets behaved the way
-                they did, (like setTimeout with 0 delay still runs after
+                I couldn&apos;t explain why certain code snippets behaved the
+                way they did, (like setTimeout with 0 delay still runs after
                 promises), or why, despite JavaScript being single-threaded, we
-                can still do things concurrently (like loading data while
-                keeping the UI responsive).
+                can still do things concurrently.
               </p>
               <p>
-                I built this tool to help me solify these concepts, as I believe
-                that building is the best way to learn.
+                I built this tool to help me solidify these concepts, as I
+                believe that building is the best way to learn.
               </p>
             </div>
           </DialogContent>
         </Dialog>
+
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              variant="outline"
-              className="h-10 px-3 sm:px-4 rounded-xl text-sm font-medium"
-              style={{
-                borderColor: "var(--warm-border)",
-                color: "var(--warm-text)",
-              }}
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 rounded-lg text-[var(--warm-muted)] hover:text-[var(--warm-text)]"
+              title="Limitations"
             >
-              <TriangleAlert className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">Limitations</span>
+              <TriangleAlert className="w-4 h-4" />
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle
-                className="text-xl"
+                className="text-lg"
                 style={{ color: "var(--warm-text)" }}
               >
                 Limitations
               </DialogTitle>
             </DialogHeader>
             <div
-              className="text-base space-y-4"
+              className="text-sm space-y-3 leading-relaxed"
               style={{ color: "var(--warm-muted)" }}
             >
               <p>
-                This is a simplified educational model of the event loop, not a
-                full JavaScript runtime. It supports{" "}
-                <code className="text-xs px-1 py-0.5 rounded bg-muted">
+                This is a simplified educational model, not a full JS runtime.
+                It supports{" "}
+                <code className="text-xs px-1.5 py-0.5 rounded-md bg-muted font-mono">
                   console.log
                 </code>
                 ,{" "}
-                <code className="text-xs px-1 py-0.5 rounded bg-muted">
+                <code className="text-xs px-1.5 py-0.5 rounded-md bg-muted font-mono">
                   setTimeout
                 </code>
                 ,{" "}
-                <code className="text-xs px-1 py-0.5 rounded bg-muted">
+                <code className="text-xs px-1.5 py-0.5 rounded-md bg-muted font-mono">
                   Promise.resolve().then()
                 </code>
                 ,{" "}
-                <code className="text-xs px-1 py-0.5 rounded bg-muted">
+                <code className="text-xs px-1.5 py-0.5 rounded-md bg-muted font-mono">
                   queueMicrotask
                 </code>
                 , and{" "}
-                <code className="text-xs px-1 py-0.5 rounded bg-muted">
+                <code className="text-xs px-1.5 py-0.5 rounded-md bg-muted font-mono">
                   requestAnimationFrame
                 </code>
                 .
               </p>
               <p>
                 It does not support variables, loops, conditionals, promise
-                chaining (
-                <code className="text-xs px-1 py-0.5 rounded bg-muted">
-                  .then().then()
-                </code>
-                ), async/await, setInterval, or complex expressions. Each
-                example is designed to work within these constraints to
-                illustrate core event loop concepts.
+                chaining, async/await, setInterval, or complex expressions.
               </p>
             </div>
           </DialogContent>

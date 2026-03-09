@@ -6,7 +6,7 @@ interface FlowConnectorProps {
 
 export function FlowConnector({ active }: FlowConnectorProps) {
   return (
-    <div className="flex-1 flex items-center px-2">
+    <div className="flex-1 flex items-center px-0.5 sm:px-2">
       <div
         className={`h-0.5 flex-1 rounded-full transition-all duration-300 ${
           active
@@ -15,7 +15,7 @@ export function FlowConnector({ active }: FlowConnectorProps) {
         }`}
       />
       <ChevronRight
-        className={`w-4 h-4 -ml-1 transition-colors duration-300 ${
+        className={`w-3 h-3 sm:w-4 sm:h-4 -ml-0.5 transition-colors duration-300 ${
           active ? "text-flow-arrow-active" : "text-flow-arrow-inactive"
         }`}
       />

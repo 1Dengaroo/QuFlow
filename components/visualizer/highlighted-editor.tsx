@@ -71,7 +71,6 @@ function tokenize(code: string): Token[] {
   let i = 0;
 
   while (i < code.length) {
-    // Line comments
     if (code[i] === "/" && code[i + 1] === "/") {
       const start = i;
       while (i < code.length && code[i] !== "\n") i++;
@@ -79,7 +78,6 @@ function tokenize(code: string): Token[] {
       continue;
     }
 
-    // Block comments
     if (code[i] === "/" && code[i + 1] === "*") {
       const start = i;
       i += 2;
@@ -89,7 +87,6 @@ function tokenize(code: string): Token[] {
       continue;
     }
 
-    // Strings
     if (code[i] === '"' || code[i] === "'" || code[i] === "`") {
       const quote = code[i];
       const start = i;
@@ -103,7 +100,6 @@ function tokenize(code: string): Token[] {
       continue;
     }
 
-    // Numbers
     if (/\d/.test(code[i])) {
       const start = i;
       while (i < code.length && /[\d.]/.test(code[i])) i++;
@@ -111,7 +107,6 @@ function tokenize(code: string): Token[] {
       continue;
     }
 
-    // Identifiers and keywords
     if (/[a-zA-Z_$]/.test(code[i])) {
       const start = i;
       while (i < code.length && /[a-zA-Z0-9_$]/.test(code[i])) i++;
@@ -127,21 +122,18 @@ function tokenize(code: string): Token[] {
       continue;
     }
 
-    // Arrow
     if (code[i] === "=" && code[i + 1] === ">") {
       tokens.push({ type: "punctuation", value: "=>" });
       i += 2;
       continue;
     }
 
-    // Punctuation
     if (/[{}()\[\];,.:=<>!&|?+\-*/%^~]/.test(code[i])) {
       tokens.push({ type: "punctuation", value: code[i] });
       i++;
       continue;
     }
 
-    // Whitespace and other
     tokens.push({ type: "text", value: code[i] });
     i++;
   }
@@ -169,7 +161,6 @@ function highlightCode(
       .join("");
   }
 
-  // Build HTML with <mark> tags at the correct character positions
   let html = "";
   let charPos = 0;
   const { start, end } = highlightRange;
@@ -178,43 +169,35 @@ function highlightCode(
     const tokenStart = charPos;
     const tokenEnd = charPos + token.value.length;
 
-    // No overlap with highlight range
     if (tokenEnd <= start || tokenStart >= end) {
       const escaped = escapeHtml(token.value);
       html +=
         token.type === "text"
           ? escaped
           : `<span class="token-${token.type}">${escaped}</span>`;
-    }
-    // Fully inside highlight range
-    else if (tokenStart >= start && tokenEnd <= end) {
+    } else if (tokenStart >= start && tokenEnd <= end) {
       const escaped = escapeHtml(token.value);
       const inner =
         token.type === "text"
           ? escaped
           : `<span class="token-${token.type}">${escaped}</span>`;
       html += `<mark class="code-highlight">${inner}</mark>`;
-    }
-    // Partially overlapping — split the token
-    else {
+    } else {
       const parts: { text: string; highlighted: boolean }[] = [];
       const val = token.value;
 
-      // Before highlight
       if (tokenStart < start) {
         parts.push({
           text: val.slice(0, start - tokenStart),
           highlighted: false,
         });
       }
-      // Highlighted portion
       const hlStart = Math.max(0, start - tokenStart);
       const hlEnd = Math.min(val.length, end - tokenStart);
       parts.push({
         text: val.slice(hlStart, hlEnd),
         highlighted: true,
       });
-      // After highlight
       if (tokenEnd > end) {
         parts.push({
           text: val.slice(end - tokenStart),
@@ -260,7 +243,7 @@ export function HighlightedEditor({
     <div className="relative flex-1 overflow-hidden">
       <pre
         ref={preRef}
-        className="absolute inset-0 p-5 m-0 overflow-hidden pointer-events-none text-base whitespace-pre-wrap break-words text-code-text"
+        className="absolute inset-0 p-3 sm:p-4 m-0 overflow-hidden pointer-events-none text-xs sm:text-sm whitespace-pre-wrap break-words text-code-text leading-relaxed"
         style={{ fontFamily: "var(--font-source-code), monospace" }}
         aria-hidden="true"
         dangerouslySetInnerHTML={{
@@ -273,7 +256,7 @@ export function HighlightedEditor({
         onChange={(e) => onChange(e.target.value)}
         onScroll={syncScroll}
         readOnly={readOnly}
-        className={`absolute inset-0 w-full h-full bg-transparent text-transparent caret-code-text text-base p-5 resize-none outline-none whitespace-pre-wrap break-words${
+        className={`absolute inset-0 w-full h-full bg-transparent text-transparent caret-code-text text-xs sm:text-sm p-3 sm:p-4 resize-none outline-none whitespace-pre-wrap break-words leading-relaxed${
           readOnly ? " cursor-default opacity-70" : ""
         }`}
         style={{ fontFamily: "var(--font-source-code), monospace" }}
