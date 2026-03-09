@@ -1,89 +1,47 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTheme } from "@/lib/theme/use-theme";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Palette, Check } from "lucide-react";
 
-function ThemeSwatch({ colors }: { colors: [string, string, string] }) {
-  return (
-    <div className="flex gap-1">
-      {colors.map((color, i) => (
-        <div
-          key={i}
-          className="w-3 h-3 rounded-full border border-border/50"
-          style={{ background: color }}
-        />
-      ))}
-    </div>
-  );
-}
+const emptySubscribe = () => () => {};
+const getTrue = () => true;
+const getFalse = () => false;
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { Moon, Sun } from "lucide-react";
 
 export function ThemePicker() {
-  const { current, themes, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+  const { isDark, setTheme } = useTheme();
+  const mounted = useSyncExternalStore(emptySubscribe, getTrue, getFalse);
 
   if (!mounted) {
     return (
-      <Button
-        variant="outline"
-        className="h-10 px-4 rounded-xl text-sm font-medium"
-        style={{
-          borderColor: "var(--warm-border)",
-          color: "var(--warm-text)",
-        }}
+      <button
+        className="h-9 w-9 rounded-lg flex items-center justify-center transition-colors"
+        style={{ color: "var(--warm-muted)" }}
       >
-        <Palette className="w-4 h-4 mr-2" />
-        Theme
-      </Button>
+        <Moon className="w-4 h-4" />
+      </button>
     );
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          className="h-10 px-4 rounded-xl text-sm font-medium"
-          style={{
-            borderColor: "var(--warm-border)",
-            color: "var(--warm-text)",
-          }}
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          className="h-9 w-9 rounded-lg flex items-center justify-center transition-colors hover:bg-[var(--muted)]"
+          style={{ color: "var(--warm-muted)" }}
+          onClick={() => setTheme(isDark ? "light" : "dark")}
         >
-          <Palette className="w-4 h-4 mr-2" />
-          {current?.name ?? "Theme"}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        {themes.map((theme) => (
-          <DropdownMenuItem
-            key={theme.id}
-            onClick={() => setTheme(theme.id)}
-            className="flex items-center justify-between cursor-pointer py-2.5"
-          >
-            <div className="flex items-center gap-3">
-              <ThemeSwatch colors={theme.previewColors} />
-              <div>
-                <div className="text-sm font-medium">{theme.name}</div>
-                <div className="text-xs text-muted-foreground">
-                  {theme.description}
-                </div>
-              </div>
-            </div>
-            {current?.id === theme.id && (
-              <Check className="w-4 h-4 text-[var(--accent-blue)]" />
-            )}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side="bottom">
+        {isDark ? "Light mode" : "Dark mode"}
+      </TooltipContent>
+    </Tooltip>
   );
 }

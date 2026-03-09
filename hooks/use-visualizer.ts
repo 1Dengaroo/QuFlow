@@ -287,7 +287,7 @@ export const useVisualizerStore = create<VisualizerStore>((set, get) => ({
     if (state.currentStep >= steps.length) return;
 
     const step = steps[state.currentStep];
-    let newState = applyStep(state, step, "forward");
+    const newState = applyStep(state, step, "forward");
     newState.currentStep = state.currentStep + 1;
 
     const isCompleted =
